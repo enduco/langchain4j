@@ -87,7 +87,7 @@ class AiServiceStreamingResponseHandler implements StreamingResponseHandler {
             context.chatMemory(memoryId).add(aiMessage(toolExecutionRequest));
 
             ToolExecutor toolExecutor = context.toolExecutors.get(toolName); // TODO what if no such tool?
-            String toolExecutionResult = toolExecutor.execute(toolExecutionRequest);
+            String toolExecutionResult = toolExecutor.execute(toolExecutionRequest, memoryId);
             ToolExecutionResultMessage toolExecutionResultMessage
                     = toolExecutionResultMessage(toolExecutionRequest.name(), toolExecutionResult);
 
