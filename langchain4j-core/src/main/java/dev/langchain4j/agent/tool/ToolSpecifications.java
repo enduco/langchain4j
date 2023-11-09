@@ -1,5 +1,7 @@
 package dev.langchain4j.agent.tool;
 
+import jdk.jfr.MemoryAddress;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.math.BigDecimal;
@@ -33,6 +35,11 @@ public class ToolSpecifications {
                 .description(description);
 
         for (Parameter parameter : method.getParameters()) {
+            // ignore memory id
+            if (parameter.isAnnotationPresent(ToolMemoryId.class)) {
+                continue;
+            }
+
             builder.addParameter(parameter.getName(), toJsonSchemaProperties(parameter));
         }
 
